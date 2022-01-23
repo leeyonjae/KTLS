@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>자료 검색 시스템</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/style.css"> <!-- 파일 경로 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- FLASK script -->
+    <style>
+      body { background-color: lightgray; font-size: 1.5em; font-family: sans-serif;}
+      table {
+        margin: auto;
+        table-layout: fixed;
+        border-spacing: 0px;
+      }
+      .container {
+        text-align: center;
+        margin-top: 75px;
+      }
+
+      .container table {
+        width: 60%;
+        min-width: 500px;
+        border: 20px solid white;
+        border-radius: 10px;
+      }
+      .container td {
+        padding: 5px;
+        text-align: center;
+        background-color: white;
+      }
+      input, button {
+        margin: 2px;
+        padding: 6px;
+        font-size: 1.2em;
+      }
+      input.textbox {
+        width: 100%;
+        min-width: 450px;
+      }
+
+      .query input, .query button {
+        width: 60%;
+        min-width: 100px;
+        border-radius: 20px;
+        border-style: none;
+        background-color: #cccccc;
+
+      }
+      .query input:hover {
+        background-color: #dddddd;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>자료 검색 시스템</h2>
+    <header>
+      <table style="width: 95%; padding: 10px">
+        <tr>
+          <th style="width: 33%">{{current_time}}</th>
+          <th style="width: 34%">{{name}}님, 환영합니다.</th>
+          <th style="width: 33%"><a href="{{ url_for('logout') }}">로그아웃</a></th>
+        </tr>
+      </table>
+      <p style="text-align: center; color: red">{{msg}}</p>
+    </header>
+
+
+    <div class="container">
+      <form action="show" method="get">
+
+        <table>
+          <tr>
+            <td colspan="3">
+              <input type="radio" name="itemtype" value="cd">
+              <label for="cd">CD 검색</label>
+              <input type="radio" name="itemtype" value="book">
+              <label for="doc">문서 검색</label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <input type="search" class="textbox" name="keyword">
+            </td>
+          </tr>
+          <tr>
+            <td><a href="{{ url_for('add') }}">자료 추가</a></td>
+            <td class="query"><input type="submit" name="find" value="찾기"></td>
+            <td></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

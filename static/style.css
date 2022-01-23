@@ -1,0 +1,42 @@
+body {
+  background-color: lightgray;
+  text-align: center;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+#message { padding: 20px; color: red; }
+a { text-decoration: none; color: royalblue; }
+a:hover { text-decoration: underline; }
+
+h1 {
+  margin: auto;
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+h2 {
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 2em;
+  text-align: center;
+}
+
+header {
+  margin: 25px;
+}
+
+input[type="radio"]:hover, label:hover, select:hover {
+  cursor: pointer;
+}
+input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
+  background-color: #dddddd;
+  cursor: pointer;
+}
+.required {
+  color: red;
+}

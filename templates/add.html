@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>자료 검색 시스템 - 새 자료 등록</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/style.css"> <!-- 파일 경로 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- FLASK script -->
+
+    <style type="text/css">
+    a { text-decoration: none;}
+    a:hover { text-decoration: underline;}
+    body { background-color: lightgray; font-size: 1.5em; font-family: sans-serif; }
+
+    table {
+      margin: auto;
+      min-width: 600px;
+      border-spacing: 0px;
+    }
+    .container table {
+      border: 20px solid white;
+      border-radius: 10px;
+    }
+    .container th, td {
+      padding: 10px;
+      background-color: white;
+    }
+    input, select {
+      margin: 2px;
+      padding: 6px;
+      font-size: 1.2em;
+    }
+    input[type="text"] {
+      min-width: 350px;
+    }
+    .query input {
+      width: 30%;
+      min-width: 150px;
+      border-radius: 20px;
+      border-style: none;
+      background-color: #cccccc;
+
+    }
+    .query input:hover {
+      background-color: #dddddd;
+      cursor: pointer;
+    }
+
+    </style>
+  </head>
+
+  <body>
+    <h2>새 자료 등록</h2>
+    <header>
+      <table style="width: 90%">
+        <tr>
+          <th style="width: 33%">{{current_time}}</th>
+          <th style="width: 34%">{{name}}님, 환영합니다.</th>
+          <th style="width: 33%"><a href="logout">로그아웃</a></th>
+        </tr>
+      </table>
+    </header>
+
+    <div class="container">
+      <form action="{{ url_for('add') }}" method="post">
+        <table>
+          <tr>
+            <td colspan="2" style="text-align: right; font-style: italic; color:red; font-size: 0.7em"> * 필수 항목</td>
+          </tr>
+          <tr>
+            <td>자료 종류 <span style="color:red">*</span></td>
+            <td>
+              <input type="radio" name="itemtype" id="cd" value="cd" required="required">
+              <label for="cd">CD</label>
+              <input type="radio" name="itemtype" id="book" value="book" required="required">
+              <label for="doc">문서</label>
+            </td>
+          </tr>
+          <tr>
+            <td>자료 제목 <span style="color:red">*</span> </td>
+            <td><input type="text" name="title" maxlength="100" required="required"></td>
+          </tr>
+          <tr>
+            <td>대분류 <span style="color:red">*</span></td>
+            <td><input type="text" name="category1" maxlength="40" required="required"></td>
+          </tr>
+          <tr>
+            <td>소분류</td>
+            <td><input type="text" name="category2" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td>위치</td>
+            <td><input type="text" name="location" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td id="varfield"></td>
+            <td><input type="hidden" id="text1" name="varfield" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="query" style="text-align: center">
+              <input type="submit" value="자료 등록">
+              <input type="reset" value="초기화">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <p><a href="{{ url_for('main') }}">돌아가기</a></p>
+
+    <script type="text/javascript">
+    document.getElementById('cd').onclick = function () {
+      document.getElementById('varfield').innerHTML = "날짜";
+      document.getElementById('text1').type = "text";
+    };
+    document.getElementById('book').onclick = function () {
+      document.getElementById('varfield').innerHTML = "자료출처";
+      document.getElementById('text1').type = "text";
+    };
+    document.getElementsByName('add')[0].onclick = function () {
+      if (document.getElementById('cd').checked || document.getElementById('doc').checked) {
+        document.getElementById('editform').submit();
+      }
+    };
+    </script>
+  </body>
+</html>

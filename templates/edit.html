@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>자료 검색 시스템 - 자료 정보 수정</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/style.css"> <!-- 파일 경로 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- FLASK script -->
+    <style type="text/css">
+    body { background-color: lightgray; font-size: 1.5em; font-family: sans-serif;
+    }
+
+    table {
+      margin: auto;
+      min-width: 600px;
+      border-spacing: 0px;
+    }
+    .container table {
+      border: 20px solid white;
+      border-radius: 10px;
+    }
+    .container th, td {
+      padding: 10px;
+      background-color: white;
+    }
+    input, select {
+      margin: 2px;
+      padding: 6px;
+      font-size: 1.2em;
+    }
+    input[type="text"] {
+      min-width: 350px;
+    }
+
+    input[type="radio"]:hover, label:hover, select:hover {
+      cursor: pointer;
+    }
+    .query input {
+      width: 30%;
+      min-width: 150px;
+      border-radius: 20px;
+      border-style: none;
+      background-color: #cccccc;
+
+    }
+
+    </style>
+  </head>
+
+  <body>
+    <h2>자료 정보 수정</h2>
+    <header>
+      <table style="width: 90%">
+        <tr>
+          <th style="width: 33%">{{current_time}}</th>
+          <th style="width: 34%">{{name}}님, 환영합니다.</th>
+          <th style="width: 33%"><a href="logout">로그아웃</a></th>
+        </tr>
+      </table>
+    </header>
+
+    <div class="container">
+      <form action="edit" id="editform" method="post">
+        <input type="hidden" name="name" value="{{name}}"> <!-- 사용자 이름 전달용 -->
+        <input type="hidden" name="bcid" value="{{docid}}">
+        <input type="hidden" name="type" id="origtype" value="{{itemtype}}">
+        <table>
+          <tr>
+            <td colspan="2" style="text-align: right; font-style: italic; color:red; font-size: 0.7em"> * 필수 항목</td>
+          </tr>
+          <tr>
+            <td>자료 종류 <span style="color:red">*</span></td>
+            <td>
+              <input type="radio" name="itemtype" id="cd" value="cd" required="required">
+              <label for="cd">CD</label>
+              <input type="radio" name="itemtype" id="book" value="book" required="required">
+              <label for="doc">문서</label>
+            </td>
+          </tr>
+          <tr>
+            <td>자료 제목 <span style="color:red">*</span></td>
+            <td><input type="text" name="title" value="{{title}}" maxlength="100" required="required"></td>
+          </tr>
+          <tr>
+            <td>대분류 <span style="color:red">*</span></td>
+            <td><input type="text" name="category1" value="{{category1}}" maxlength="40" required="required"></td>
+          </tr>
+          <tr>
+            <td>소분류</td>
+            <td><input type="text" name="category2" value="{{category2}}" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td>위치</td>
+            <td><input type="text" name="location" value="{{location}}" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td><span id="varfield"></span></td>
+            <td><input type="text" name="varfield" id="text1" value="{{var}}" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td><a href="javascript:del()">자료 삭제</a></td>
+            <td class="query">
+              <input type="submit" value="수정">
+              <input type="reset" value="초기화">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <p><a href="javascript:history.back()">돌아가기</a></p>
+    <script type="text/javascript">
+    var itemtype = document.getElementById("origtype").value;
+    if (itemtype == "cd") {
+      document.getElementById("cd").checked = true;
+      document.getElementById("book").checked = false;
+      document.getElementById("varfield").innerHTML = "날짜";
+    } else if (itemtype == "book") {
+        document.getElementById("book").checked = true;
+        document.getElementById("cd").checked = false;
+        document.getElementById("varfield").innerHTML = "자료출처";
+    }
+    document.getElementById('cd').onclick = function () {
+      document.getElementById('varfield').innerHTML = "날짜";
+    };
+    document.getElementById('book').onclick = function () {
+      document.getElementById('varfield').innerHTML = "자료출처";
+    };
+
+    // 자료 정보를 삭제할 것인지 최종 확인
+    function del() {
+      if (confirm("이 자료에 대한 정보를 삭제하시겠습니까?")) {
+        window.location.href="delete?id={{docid}}";
+      }
+    }
+    </script>
+  </body>
+</html>

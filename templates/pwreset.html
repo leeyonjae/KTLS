@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>자료 검색 시스템 - 패스워드 재설정</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/style.css"> <!-- 파일 경로 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- FLASK script -->
+
+    <style type="text/css">
+      body {
+        /*background-color: lightgray;*/
+        text-align: center;
+        padding: 40px;
+        font-family: sans-serif;
+      }
+      table {
+        min-width: 350px;
+        margin: auto;
+        border: 35px solid #333333;
+        border-radius: 25px;
+        border-spacing: 0px;
+        background-color: white;
+      }
+      td {
+        text-align: center;
+        padding:  10px 25px 10px 25px;
+      }
+      input, button {
+        margin: 2px;
+        padding: 10px;
+        font-size: 1.2em;
+        border-style:none;
+      }
+      input.textbox {
+        width: 50%;
+        min-width: 250px;
+        border-bottom: 1px solid black;
+      }
+      input[type="submit"], button {
+        width: 25.5%;
+        min-width: 150px;
+        border-radius: 20px;
+        background-color: #cccccc;
+      }
+
+      input[type="submit"]:hover, button:hover {
+        background-color: #dddddd;
+        cursor: pointer;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <h1>자료 검색 시스템</h1>
+    <h2>패스워드 재설정</h2>
+
+    <p style="padding-top: 20px; color: red;">{{msg}}</p>
+    <p style="padding-bottom: 20px">사용하시고자 하는 새 패스워드를 입력해주세요.</p>
+    <div class="container">
+      <form action="resetpw" method="post">
+        <input type="hidden" name="userID" value="{{userID}}">
+        <input type="hidden" name="username" value="{{name}}">
+        <table>
+          <tr>
+            <td><input type="password" class="textbox" name="newPW" maxlength="30" placeholder="패스워드"></td>
+          </tr>
+          <tr>
+            <td><input type="password" class="textbox" name="PWconfirm" maxlength="30" placeholder="패스워드 확인"></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="submit" value="재설정">
+              <a href="login"><button type="button">돌아가기</button></a>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

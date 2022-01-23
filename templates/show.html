@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>자료 검색 시스템 - 검색 결과</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/style.css"> <!-- 파일 경로 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- FLASK script -->
+    <style>
+      body { background-color: lightgray; font-size: 1.5em; font-family: sans-serif;}
+      header {
+        margin-bottom: 20px;
+      }
+      table { margin: auto; border-spacing: 0px;}
+      td {
+        font-family: serif;
+      }
+
+      .container {
+        margin: auto;
+        background-color: white;
+        border-radius: 10px;
+        padding-bottom: 30px;
+        padding-top: 30px;
+        width: 90%;
+      }
+      .container th, .container td {
+        padding: 5px;
+        word-wrap: break-word;
+        border-bottom: 3px solid gray;
+        text-align: center;
+      }
+      td.pages { border-style: none; }
+      td.description {
+        text-align: left;
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+      button {
+        margin: 2px;
+        padding: 6px;
+        font-size: 1em;
+
+        width: 60%;
+        min-width: 100px;
+        border-radius: 20px;
+        border-style: none;
+        background-color: #cccccc;
+      }
+
+
+    </style>
+
+  </head>
+  <body>
+    <h2>자료 검색 시스템</h2>
+    <header>
+      <table style="width: 90%; border-spacing: 10px">
+        <tr style="text-align: center">
+          <th style="width: 33%">{{current_time}}</th>
+          <th style="width: 34%">{{name}}님, 환영합니다.</th>
+          <th style="width: 33%"> <a href="logout">로그아웃</a></th>
+        </tr>
+      </table>
+      <h3><strong>"{{keyword}}"</strong> 검색 결과</h3>
+    </header>
+    <div class="container">
+      <table style="width: 90%">
+        <thead>
+          <tr>
+            <th style="width: 10%">번호</th>
+            <th style="width: 60%">제목</th>
+            <th style="width: 20%">위치</th>
+            <th style="width: 10%">관리</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in result %}
+          <tr>
+            <td>{{row[7]}}</td>
+            <td class="description">
+              <h3>{{row[1]}}</h3>
+              <p>
+                {% if row[3] == "" %}
+                분류 : {{row[2]}} <br>
+                {% else %}
+                분류 : {{row[2]}} > {{row[3]}} <br>
+                {% endif %}
+                {% if row[0] == "book" and row[5] != ""  %}
+                자료출처 : {{row[5]}}
+                {% elif row[6] != "" %}
+                날짜 : {{row[6]}}
+                {% else %}
+                {% endif %}
+              </p>
+            </td>
+            <td><strong>{{row[4]}}</strong></td>
+            <td>
+              <p><a href="edit?id={{row[7]}}"><button type="button">수정</button></a></p>
+              <p><a href="javascript:del('{{row[7]}}')"><button type="button">삭제</button></a></p>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <footer>
+        <table>
+          <tr>
+            {% for p in range(1, pages + 1) %}
+             {% if p == page %}
+              <td class="pages"><strong>{{p}}</strong></td>
+             {% else %}
+              <td class="pages"><a href="show?itemtype={{itemtype}}&keyword={{keyword}}&page={{p}}">{{p}}</a></td>
+             {% endif %}
+            {% endfor %}
+          </tr>
+        </table>
+      </footer>
+
+
+
+    </div>
+    <p><a href="main">다시 검색하기</a></p>
+    <script type="text/javascript">
+      // 자료 정보를 삭제할 것인지 최종 확인
+      function del(docid) {
+        if (confirm("이 자료에 대한 정보를 삭제하시겠습니까?")) {
+          window.location.href="delete?id=".concat(docid);
+        }
+      }
+    </script>
+  </body>
+</html>

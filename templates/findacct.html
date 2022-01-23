@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>자료 검색 시스템 - 패스워드 재설정</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/style.css"> <!-- 파일 경로 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- FLASK script -->
+
+    <style type="text/css">
+      body {
+        text-align: center;
+        padding: 40px;
+        font-family: sans-serif;
+      }
+      h2 {
+        font-weight: bold; margin-bottom: 20px; font-size: 2em;
+
+      }
+      table {
+        min-width: 350px;
+        margin: auto;
+        border: 35px solid #333333;
+        border-radius: 25px;
+        border-spacing: 0px;
+        background-color: white;
+      }
+      td {
+        text-align: center;
+        padding:  10px 25px 10px 25px;
+      }
+      input, button {
+        margin: 2px;
+        padding: 10px;
+        font-size: 1.2em;
+        border-style:none;
+      }
+      input.textbox {
+        width: 50%;
+        min-width: 250px;
+        border-bottom: 1px solid black;
+      }
+      input[type="submit"], button {
+        width: 25.5%;
+        min-width: 150px;
+        border-radius: 20px;
+        background-color: #cccccc;
+      }
+
+      input[type="submit"]:hover, button:hover {
+        background-color: #dddddd;
+        cursor: pointer;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <h1>자료 검색 시스템</h1>
+    <h2>패스워드 재설정</h2>
+
+    <p style="padding-top: 20px; color: red;">{{msg}}</p>
+    <!-- 이메일을 통한 재설정을 구현할 수 없는 환경의 인트라넷 용으로 만들어진 Application입니다 -->
+    <!-- TODO: 다른 PW 재설정 방법 찾기 -->
+    <p style="padding-bottom: 20px">아이디와 이름을 입력해주세요.</p>
+    <div class="container">
+      <form action="forgotpw" method="post">
+        <table>
+          <tr>
+            <td><input type="text" class="textbox" name="userID" maxlength="20" placeholder="아이디"></td>
+          </tr>
+          <tr>
+            <td><input type="text" class="textbox" name="username" maxlength="25" placeholder="이름"></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="submit" value="계정 확인">
+              <a href="{{ url_for('login') }}"> <button type="button">돌아가기</button></a>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

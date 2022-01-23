@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>자료 검색 시스템 - Error</title>
+    <meta charset="utf-8">
+    {% if msg=='OK' %}
+      <meta http-equiv='refresh' content='0; url=/'>
+    {% endif %}
+    <style type="text/css">
+      body {
+        font-size: 16pt;
+        background-color: lightgray;
+      }
+      h1 { text-align: center; font-weight: bold; }
+      .container {
+        background-color: white;
+        margin: auto;
+        width: 60%;
+        min-width: 300px;
+        text-align: center;
+        padding: 20px;
+        border-radius: 2em;
+        vertical-align: center;
+      }
+      input {
+        margin: 2px;
+        padding: 6px;
+        font-size: 1em;
+      }
+      input[type="submit"]{
+        width: 200px;
+        border-radius: 20px;
+        border-style: none;
+        background-color: #cccccc;
+      }
+      p {
+        margin-top: 75px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Company Name 자료실</h1>
+    <div class="container">
+      <!-- 정상 접속종료, 오류 발생 등 메시지 -->
+      <p> {{msg}} </p>
+      <p><a href="{{ url_for('login') }}">로그인 하러 가기</a></p>
+
+    </div>
+  </body>
+</html>
