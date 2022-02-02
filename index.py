@@ -11,15 +11,22 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, log
 # Python 2.x 버전에서 작동하는 Application입니다.
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATABASE = "./LibraryDB.db" #LINUX
+#DATABASE = "C:\\Users\\PC\\Documents\\SOFTWARE\\Library\\LibraryDB.db"  # Windows Path
+DATABASE = "./LibraryDB.db" # Linux Path
+
+# 서버 IP, 포트 설정
+# Default : 0.0.0.0:5700
+hostIP = "0.0.0.0"
+hostPort = 5700 
 
 # Flask application 생성
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.secret_key = b"c2hmcnlqIGRzZmhzZGg1eWRmIApkZg=="
+
+app.secret_key = b"c2hmcnlqIGRzZmhzZGg1eWRmIApkZg==" # TODO: 보안 강화
 
 reload(sys)
-sys.setdefaultencoding('utf-8')
+sys.setdefaultencoding('utf-8') # Set Encoding to UTF-8
 
 # Login 관리
 login_manager = LoginManager()
@@ -237,7 +244,6 @@ def signup():
     else:
         return render_template("signup.html")
 
-# 계정 생성 시도
 
 # 로그아웃
 @app.route("/logout")
@@ -482,6 +488,4 @@ def delete():
 
 # 프로그램 실행
 if __name__ == '__main__':
-    # 사용 포트: 5700 (필요에 따라 추후 변경)
-    # 현행 서버 IP: ***.***.***.*** (0.0.0.0 (default) 설정으로 IP 변경시에도 접속 가능)
-    app.run(host="0.0.0.0", port=5700, threaded=True)
+    app.run(host=hostIP, port=hostPort, threaded=True)
